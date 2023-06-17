@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.DetailFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_detail_name"
+                android:text="@string/nama_user"
+                android:layout_marginBottom="5dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/iv_detail_photo"
+                android:layout_below="@id/tv_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:padding="10dp"
+                android:src="@drawable/baseline_broken_image_24"
+                android:contentDescription="@string/foto_story_user" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_item"
+                android:layout_below="@id/iv_detail_photo"
+                app:cardCornerRadius="@dimen/cardview_default_radius"
+                android:backgroundTint="@color/cream"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_detail_description"
+                    android:text="@string/lorem"
+                    android:padding="@dimen/text_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav.xml"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="com.codefal.mystoryapp.view.StoryFragment"
+        android:label="fragment_story_list"
+        tools:layout="@layout/fragment_story_list" >
+        <action
+            android:id="@+id/action_storyFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_storyFragment_to_createStoryFragment"
+            app:destination="@id/createStoryFragment" />
+        <action
+            android:id="@+id/action_storyFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.codefal.mystoryapp.view.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.codefal.mystoryapp.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.codefal.mystoryapp.view.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/createStoryFragment"
+        android:name="com.codefal.mystoryapp.view.CreateStoryFragment"
+        android:label="fragment_create_story"
+        tools:layout="@layout/fragment_create_story" >
+        <action
+            android:id="@+id/action_createStoryFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+    </fragment>
+</navigation>

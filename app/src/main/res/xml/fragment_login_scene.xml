@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1290"
+        motion:autoTransition="animateToEnd">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnSwipe motion:springDamping="1.093"
+            motion:springStiffness="189.95"
+            motion:maxAcceleration="5.4"
+            motion:maxVelocity="1.15" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/image_login"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:transitionEasing="standard">
+            <CustomAttribute
+                motion:attributeName="translationY"
+                motion:customFloatValue="10" />
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/image_login"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="200dp"
+            motion:transitionEasing="decelerate"
+            motion:pathMotionArc="flip"></Constraint>
+        <Constraint
+            android:id="@+id/button_login"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/layout_password"
+            motion:layout_constraintStart_toStartOf="parent"></Constraint>
+        <Constraint
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toEndOf="@+id/tv_sign_up"
+            motion:layout_constraintHorizontal_bias="0.073"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/button_login"
+            android:id="@+id/button_sign_up" />
+        <Constraint
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/button_login"
+            android:id="@+id/tv_sign_up" />
+    </ConstraintSet>
+</MotionScene>
