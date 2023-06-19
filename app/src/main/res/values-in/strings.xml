@@ -4,7 +4,6 @@
     <string name="foto_story_user">Foto cerita pengguna</string>
     <string name="nama_user">Nama pengguna</string>
     <string name="email_error_message">Harap masukan email yang valid</string>
-    <string name="camera">Kamera</string>
     <string name="add_story">Tambah Cerita</string>
     <string name="desc">Masukan Deskripsi untuk ceritamu di DIcoding</string>
     <string name="password">Kata Sandi</string>
@@ -16,10 +15,10 @@
     <string name="password_error_message">Password setidaknya harus 8 karakter</string>
     <string name="username_error_message">Harap masukan nama pengguna</string>
     <string name="detail_story">Detail Cerita</string>
-    <string name="switch_camera_button_alt">Beralih kamera</string>
-    <string name="capture_button_alt">Ambil gambar</string>
     <string name="are_you_sure">Apakah yakin untuk keluar?</string>
     <string name="cancel">Kembali</string>
     <string name="input_image">Masukan gambar terlebih dahulu</string>
     <string name="Allow_perm">Buka pengaturan untuk menyetujui izin</string>
+    <string name="submit">Kirim</string>
+    <string name="input_valid_form">Masukkan formulir yang valid</string>
 </resources>

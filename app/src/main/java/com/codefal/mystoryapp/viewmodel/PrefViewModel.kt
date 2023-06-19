@@ -18,8 +18,6 @@ class PrefViewModel @Inject constructor(private val store: DataStoreManager): Vi
 
     fun getToken() = store.getToken().asLiveData()
 
-    fun getName()= store.getName().asLiveData()
-
     fun getStatus()= store.getStatus().asLiveData()
     fun logout(){
         viewModelScope.launch { store.delete() }

@@ -10,17 +10,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DataStoreManager @Inject constructor(private val setDataStore : DataStore<Preferences>){
-
-    private val TOKEN = stringPreferencesKey("token")
-    private val NAMEKEY = stringPreferencesKey("name")
-    private val ISLOGIN = booleanPreferencesKey("isLogin")
-
     fun getToken(): Flow<String> = setDataStore.data.map { pref ->
         pref[TOKEN] ?: "undefined"
-    }
-
-    fun getName(): Flow<String> = setDataStore.data.map { pref ->
-        pref[NAMEKEY] ?: ""
     }
 
     fun getStatus(): Flow<Boolean> = setDataStore.data.map { pref ->
@@ -36,5 +27,11 @@ class DataStoreManager @Inject constructor(private val setDataStore : DataStore<
 
     suspend fun delete(){
         setDataStore.edit { pref -> pref.clear() }
+    }
+
+    companion object {
+        private val TOKEN = stringPreferencesKey("token")
+        private val NAMEKEY = stringPreferencesKey("name")
+        private val ISLOGIN = booleanPreferencesKey("isLogin")
     }
 }

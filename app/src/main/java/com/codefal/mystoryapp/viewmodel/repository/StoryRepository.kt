@@ -21,7 +21,6 @@ class StoryRepository @Inject constructor(private val api: ApiService) {
     fun detailStoryObserver() : MutableLiveData<Story?> = detailStory
 
     private val addStory = MutableLiveData<ResponseErrorMessage?>()
-    fun addStoryObserver() : MutableLiveData<ResponseErrorMessage?> = addStory
 
     private val message : MutableLiveData<String?> = MutableLiveData()
     fun messageObserver(): LiveData<String?> = message

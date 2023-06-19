@@ -1,6 +1,5 @@
 package com.codefal.mystoryapp.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codefal.mystoryapp.R
@@ -33,8 +32,6 @@ class StoryFragment : Fragment() {
     private val storyModel : StoryViewModel by viewModels()
     private val adapterStory by lazy { MyItemAdapter() }
 
-    private lateinit var navController: NavController
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,9 +44,6 @@ class StoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
-
         setData()
         setRV()
 
@@ -57,7 +51,7 @@ class StoryFragment : Fragment() {
         actionBar?.title = getString(R.string.home)
 
         binding.btnCreateStory.setOnClickListener {
-            navController.navigate(R.id.action_storyFragment_to_createStoryFragment)
+            Navigation.findNavController(requireView()).navigate(R.id.action_storyFragment_to_createStoryFragment)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -95,20 +89,13 @@ class StoryFragment : Fragment() {
         binding.storyList.layoutManager = layout
         adapterStory.onClick ={
             val bundle = Bundle()
-            bundle.putParcelable("detail_story", it)
+            bundle.putParcelable(KEY_STORY, it)
             findNavController().navigate(R.id.action_storyFragment_to_detailFragment, bundle)
         }
     }
 
     private fun loading(status: Boolean) {
-        when(status){
-            true -> {
-                binding.loadingBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.loadingBar.visibility = View.GONE
-            }
-        }
+        binding.loadingBar.isVisible = status
     }
 
     override fun onResume() {
@@ -116,16 +103,12 @@ class StoryFragment : Fragment() {
         setData()
     }
 
-    @Suppress("DEPRECATION")
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val callback: OnBackPressedCallback = object :
-            OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                this.remove()
-                activity?.onBackPressed()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    companion object {
+        const val KEY_STORY = "detail_story"
     }
 }

@@ -1,14 +1,16 @@
 package com.codefal.mystoryapp.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -45,23 +47,17 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.edLoginEmail.doAfterTextChanged { validateForm() }
+        binding.edLoginPassword.doAfterTextChanged { validateForm() }
+
         binding.buttonLogin.setOnClickListener {
-            binding.apply {
-                val email = edEmailLogin.text.toString().trim()
-                val password = edPasswordLogin.text.toString().trim()
-                if (email.isEmpty() && password.isEmpty()) {
-                    layoutEmail.error = getString(R.string.email_error_message)
-                    layoutPassword.error = getString(R.string.password_error_message)
-                } else {
-                    layoutEmail.error = null
-                    layoutPassword.error = null
-                    login(email, password)
-                }
-            }
+            val email = binding.edLoginEmail.text.toString().trim()
+            val password = binding.edLoginPassword.text.toString().trim()
+            login(email, password)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -70,6 +66,14 @@ class LoginFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun validateForm() {
+        binding.apply {
+            val email = edLoginEmail.text.toString()
+            val password = edLoginPassword.text.toString()
+            buttonLogin.isEnabled = password.length >= 8 && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
     }
 
     private fun login(email: String, password: String) {
@@ -89,14 +93,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun loading(status: Boolean) {
-        when(status){
-            true -> {
-                binding.loadingBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.loadingBar.visibility = View.GONE
-            }
-        }
+        binding.loadingBar.isVisible = status
     }
 
     override fun onResume() {
@@ -107,5 +104,10 @@ class LoginFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         (activity as AppCompatActivity).supportActionBar?.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

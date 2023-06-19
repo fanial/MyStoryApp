@@ -1,8 +1,6 @@
 package com.codefal.mystoryapp.model
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class ResponseDetailStory(
 
@@ -16,7 +14,6 @@ data class ResponseDetailStory(
 	val story: Story
 )
 
-@Parcelize
 data class Story(
 
 	@field:SerializedName("photoUrl")
@@ -39,4 +36,4 @@ data class Story(
 
 	@field:SerializedName("lat")
 	val lat: Float
-) : Parcelable
+)

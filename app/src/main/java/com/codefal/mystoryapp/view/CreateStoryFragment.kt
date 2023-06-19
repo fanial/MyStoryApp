@@ -2,7 +2,6 @@ package com.codefal.mystoryapp.view
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -30,7 +30,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.util.*
 
-@Suppress("DEPRECATION")
+
 @AndroidEntryPoint
 class CreateStoryFragment : Fragment() {
 
@@ -49,11 +49,12 @@ class CreateStoryFragment : Fragment() {
     )
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        binding.imagePreview.setImageURI(uri)
-        val imgUri = uri as Uri
-        val img = uriToFile(imgUri, requireContext())
-        getFile = img
-        Log.i("URI Gallery", "Image: $uri, $img")
+        if (uri != null){
+            binding.imagePreview.setImageURI(uri)
+            val img = uriToFile(uri, requireContext())
+            getFile = img
+            Log.i("URI Gallery", "Image: $uri, $img")
+        }
     }
 
     override fun onCreateView(
@@ -140,6 +141,7 @@ class CreateStoryFragment : Fragment() {
     private fun isPermissionGranted(permission: String) = ContextCompat.checkSelfPermission(requireContext(), permission) ==
             PackageManager.PERMISSION_GRANTED
 
+    @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
@@ -154,14 +156,12 @@ class CreateStoryFragment : Fragment() {
     }
 
     private fun loading(status: Boolean) {
-        when(status){
-            true -> {
-                binding.loadingBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.loadingBar.visibility = View.GONE
-            }
-        }
+        binding.loadingBar.isVisible = status
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {

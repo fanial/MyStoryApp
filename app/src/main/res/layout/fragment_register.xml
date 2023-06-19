@@ -7,7 +7,6 @@
     tools:context=".view.RegisterFragment">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -17,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -59,7 +57,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/email"
-                app:errorEnabled="true"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_name_reg">
@@ -76,7 +74,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
-                app:errorEnabled="true"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_email_reg">
@@ -89,11 +87,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
+            <com.codefal.mystoryapp.view.custom.ButtonCustom
                 android:id="@+id/button_register"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:text="@string/sign_up"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +111,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/button_register" />
 
             <TextView
-                android:id="@+id/button_sign_up"
+                android:id="@+id/btn_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

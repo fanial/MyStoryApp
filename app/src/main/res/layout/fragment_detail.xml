@@ -34,7 +34,6 @@
                 android:contentDescription="@string/foto_story_user" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_item"
                 android:layout_below="@id/iv_detail_photo"
                 app:cardCornerRadius="@dimen/cardview_default_radius"
                 android:backgroundTint="@color/cream"
@@ -53,8 +52,8 @@
 
     <ProgressBar
         android:id="@+id/loading_bar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package com.codefal.mystoryapp.network
 
+import androidx.viewbinding.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,15 +16,13 @@ import javax.inject.Singleton
 object ApiConfig {
     private const val BASE_URL = "https://story-api.dicoding.dev/v1/"
 
-    private  val logging : HttpLoggingInterceptor
-        get(){
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            return httpLoggingInterceptor.apply {
-                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            }
-        }
+    private val loggingInterceptor = if (BuildConfig.DEBUG) {
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    } else {
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+    }
 
-    private val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
+    private val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
     @Singleton
     @Provides

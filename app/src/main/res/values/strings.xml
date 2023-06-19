@@ -3,12 +3,10 @@
     <string name="foto_story_user">Image Story User</string>
     <string name="nama_user">Username</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="email" translatable="false">Email</string>
     <string name="email_error_message">Please input valid email</string>
     <string name="login" translatable="false">Login</string>
     <string name="lorem" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quam tellus, maximus fermentum ultrices quis, iaculis sed elit. Phasellus sodales elementum dolor. Mauris ac massa nisl. Maecenas vel tempor nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse dictum ante eget quam consectetur eleifend. Praesent efficitur in est vitae lacinia. Nulla laoreet, nibh quis pharetra rutrum, mi nunc elementum eros, at malesuada mi leo nec justo. Nulla consequat nec lectus sed suscipit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc varius sed risus sit amet imperdiet. Etiam non auctor ex. Vivamus ut ex dictum, pulvinar leo ac, vulputate nisl.</string>
-    <string name="camera">Camera</string>
     <string name="gallery" translatable="false">Gallery</string>
     <string name="add_story">Add Story</string>
     <string name="desc">Add description about your story in Dicoding</string>
@@ -22,11 +20,10 @@
     <string name="username_error_message">Please input username!</string>
     <string name="home" translatable="false">Home</string>
     <string name="detail_story">Detail Story</string>
-    <string name="switch_camera_button_alt">Switch Camera</string>
-    <string name="capture_button_alt">Capture</string>
-    <string name="gallery_button_alt" translatable="false">Gallery</string>
     <string name="are_you_sure">Are you sure to logout?</string>
     <string name="cancel">Cancel</string>
     <string name="input_image">Input images first</string>
     <string name="Allow_perm">Open Setting to allow permissions</string>
+    <string name="submit">Submit</string>
+    <string name="input_valid_form">Input a valid form</string>
 </resources>
