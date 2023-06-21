@@ -22,6 +22,9 @@ class StoryRepository @Inject constructor(private val api: ApiService) {
 
     private val addStory = MutableLiveData<ResponseErrorMessage?>()
 
+    private val listMaps = MutableLiveData<List<ListStoryItem>>()
+    fun mapsObserver() : LiveData<List<ListStoryItem>> = listMaps
+
     private val message : MutableLiveData<String?> = MutableLiveData()
     fun messageObserver(): LiveData<String?> = message
 
@@ -102,10 +105,18 @@ class StoryRepository @Inject constructor(private val api: ApiService) {
                 response: Response<ResponseErrorMessage>
             ) {
                 _loading.value = false
-                val body = response.body()
-                if (body != null){
-                    addStory.postValue(body)
-                    Log.i("Success", "onResponse: Success Add Story")
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body != null){
+                        addStory.postValue(body)
+                        message.value = body.message
+                        Log.i("Success", "onResponse: Success Add Story")
+                    }else{
+                        addStory.postValue(null)
+                        val error = response.message()
+                        message.value = error
+                        Log.e("Fail", "onResponse: Failed Add Story Null")
+                    }
                 }else{
                     addStory.postValue(null)
                     val error = response.message()
@@ -115,9 +126,47 @@ class StoryRepository @Inject constructor(private val api: ApiService) {
             }
 
             override fun onFailure(call: Call<ResponseErrorMessage>, t: Throwable) {
+                addStory.postValue(null)
                 message.value= t.message
                 _loading.value = false
                 Log.e("Response Error", "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun getLocStory(token: String){
+        _loading.value = true
+        api.getLocStory(token, 1).enqueue(object : Callback<ResponseStories>{
+            override fun onResponse(
+                call: Call<ResponseStories>,
+                response: Response<ResponseStories>
+            ) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body != null){
+                        listStory.postValue(body.listStory)
+                        message.value = body.message
+                        Log.i("Success", "${body.listStory}")
+                    }else{
+                        listStory.value = null
+                        val error = response.message()
+                        message.value = error
+                        Log.e("Fail", "onResponse: Failed Get Story Null")
+                    }
+                }else{
+                    listStory.value = null
+                    val error = response.message()
+                    message.value = error
+                    Log.e("Failed", "onResponse: Get Story Null")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseStories>, t: Throwable) {
+                listStory.value = null
+                message.value= t.message
+                _loading.value = false
+                Log.e("Response Error", "onFailure: ${t.message}", t)
             }
 
         })

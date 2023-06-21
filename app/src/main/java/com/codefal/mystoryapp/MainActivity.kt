@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
 
-            R.id.logout -> {
+            R.id.action_logout -> {
                 MaterialAlertDialogBuilder(this)
                     .setTitle(getString(R.string.logout))
                     .setMessage(resources.getString(R.string.are_you_sure))

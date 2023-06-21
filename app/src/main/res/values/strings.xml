@@ -26,4 +26,14 @@
     <string name="Allow_perm">Open Setting to allow permissions</string>
     <string name="submit">Submit</string>
     <string name="input_valid_form">Input a valid form</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="maps" translatable="false">Maps</string>
+    <string name="normal_type" translatable="false">Normal</string>
+    <string name="satellite_type" translatable="false">Satellite</string>
+    <string name="terrain_type" translatable="false">Terrain</string>
+    <string name="hybrid_type" translatable="false">Hybrid</string>
+    <string name="loc_not_found" translatable="false">Location Not Found</string>
+    <string name="illegal_arg" translatable="false">Illegal Argument Exception</string>
+    <string name="maps_api" translatable="false">AIzaSyBLzIKGVk4Skzb4cIbLPkLBtmtvt-ySHvM</string>
 </resources>

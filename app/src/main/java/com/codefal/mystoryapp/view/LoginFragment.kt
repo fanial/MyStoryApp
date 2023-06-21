@@ -19,6 +19,7 @@ import com.codefal.mystoryapp.R
 import com.codefal.mystoryapp.databinding.FragmentLoginBinding
 import com.codefal.mystoryapp.viewmodel.AuthViewModel
 import com.codefal.mystoryapp.viewmodel.PrefViewModel
+import com.google.android.gms.maps.model.Marker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,5 +1,6 @@
 package com.codefal.mystoryapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codefal.mystoryapp.R
@@ -38,6 +40,11 @@ class StoryFragment : Fragment() {
     ): View {
         _binding = FragmentStoryListBinding.inflate(layoutInflater)
         storyModel.loadingObserver().observe(viewLifecycleOwner){ loading(it) }
+        storyModel.messageObserver().observe(viewLifecycleOwner) {
+            if (it != null) {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
+        }
         return binding.root
     }
 
@@ -54,6 +61,10 @@ class StoryFragment : Fragment() {
             Navigation.findNavController(requireView()).navigate(R.id.action_storyFragment_to_createStoryFragment)
         }
 
+        binding.btnActionMaps.setOnClickListener {
+            val intent = Intent(requireContext(), MapsActivity::class.java)
+            startActivity(intent)
+        }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().finish()
@@ -71,15 +82,8 @@ class StoryFragment : Fragment() {
                     adapterStory.setData(it as MutableList<ListStoryItem?>)
                     setRV()
                     Log.i("Success", "onViewCreated: List Story")
-                }else{
-                    storyModel.messageObserver().observe(viewLifecycleOwner){ msg ->
-                        if (msg !=null){
-                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        }
-                    }
                 }
             }
-
         }
     }
 
