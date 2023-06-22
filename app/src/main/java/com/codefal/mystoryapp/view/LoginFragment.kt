@@ -94,7 +94,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun loading(status: Boolean) {
-        binding.loadingBar.isVisible = status
+        when (status){
+            true -> {
+                binding.loadingBar.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.loadingBar.visibility = View.INVISIBLE
+            }
+        }
+
     }
 
     override fun onResume() {

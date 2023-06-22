@@ -1,9 +1,13 @@
 package com.codefal.mystoryapp.network
 
-import com.codefal.mystoryapp.model.*
+import com.codefal.mystoryapp.network.model.ResponseDetailStory
+import com.codefal.mystoryapp.network.model.ResponseErrorMessage
+import com.codefal.mystoryapp.network.model.ResponseLogin
+import com.codefal.mystoryapp.network.model.ResponseStories
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -31,9 +35,11 @@ interface ApiService {
     ) : Call<ResponseErrorMessage>
 
     @GET("stories")
-    fun getStories(
+    suspend fun getStories(
         @Header("Authorization") token : String,
-    ) : Call<ResponseStories>
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ) : Response<ResponseStories>
 
     @GET("stories/{id}")
     fun getDetailStories(
@@ -46,4 +52,5 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("location") loc : Int? = null
     ) : Call<ResponseStories>
+
 }

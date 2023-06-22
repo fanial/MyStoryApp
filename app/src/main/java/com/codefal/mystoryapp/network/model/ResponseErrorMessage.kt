@@ -1,4 +1,4 @@
-package com.codefal.mystoryapp.model
+package com.codefal.mystoryapp.network.model
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

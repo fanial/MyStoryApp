@@ -1,7 +1,7 @@
 package com.codefal.mystoryapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.codefal.mystoryapp.viewmodel.repository.AuthRepository
+import com.codefal.mystoryapp.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

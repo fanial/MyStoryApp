@@ -18,8 +18,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codefal.mystoryapp.R
 import com.codefal.mystoryapp.databinding.FragmentStoryListBinding
-import com.codefal.mystoryapp.model.ListStoryItem
+import com.codefal.mystoryapp.network.model.ListStoryItem
+import com.codefal.mystoryapp.view.adapter.LoadStateAdapter
 import com.codefal.mystoryapp.view.adapter.MyItemAdapter
+import com.codefal.mystoryapp.viewmodel.PagingViewModel
 import com.codefal.mystoryapp.viewmodel.PrefViewModel
 import com.codefal.mystoryapp.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +33,7 @@ class StoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val prefModel : PrefViewModel by viewModels()
-    private val storyModel : StoryViewModel by viewModels()
+    private val pagingModel : PagingViewModel by viewModels()
     private val adapterStory by lazy { MyItemAdapter() }
 
     override fun onCreateView(
@@ -39,12 +41,6 @@ class StoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoryListBinding.inflate(layoutInflater)
-        storyModel.loadingObserver().observe(viewLifecycleOwner){ loading(it) }
-        storyModel.messageObserver().observe(viewLifecycleOwner) {
-            if (it != null) {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            }
-        }
         return binding.root
     }
 
@@ -76,13 +72,8 @@ class StoryFragment : Fragment() {
     private fun setData() {
         prefModel.getToken().observe(viewLifecycleOwner){ token ->
             Log.i("Pref", "Token: $token")
-            storyModel.getStory(token)
-            storyModel.listStoryObserver().observe(viewLifecycleOwner){
-                if (it != null){
-                    adapterStory.setData(it as MutableList<ListStoryItem?>)
-                    setRV()
-                    Log.i("Success", "onViewCreated: List Story")
-                }
+            pagingModel.story(token).observe(viewLifecycleOwner){
+                adapterStory.submitData(lifecycle, it)
             }
         }
     }
@@ -96,10 +87,11 @@ class StoryFragment : Fragment() {
             bundle.putParcelable(KEY_STORY, it)
             findNavController().navigate(R.id.action_storyFragment_to_detailFragment, bundle)
         }
-    }
-
-    private fun loading(status: Boolean) {
-        binding.loadingBar.isVisible = status
+        binding.storyList.adapter = adapterStory.withLoadStateFooter(
+            footer = LoadStateAdapter{
+                adapterStory.retry()
+            }
+        )
     }
 
     override fun onResume() {

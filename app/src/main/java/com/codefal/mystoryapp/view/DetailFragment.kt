@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.codefal.mystoryapp.R
 import com.codefal.mystoryapp.databinding.FragmentDetailBinding
-import com.codefal.mystoryapp.model.ListStoryItem
+import com.codefal.mystoryapp.network.model.ListStoryItem
 import com.codefal.mystoryapp.view.StoryFragment.Companion.KEY_STORY
 import com.codefal.mystoryapp.viewmodel.PrefViewModel
 import com.codefal.mystoryapp.viewmodel.StoryViewModel

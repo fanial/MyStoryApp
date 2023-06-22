@@ -36,4 +36,7 @@
     <string name="loc_not_found" translatable="false">Location Not Found</string>
     <string name="illegal_arg" translatable="false">Illegal Argument Exception</string>
     <string name="maps_api" translatable="false">AIzaSyBLzIKGVk4Skzb4cIbLPkLBtmtvt-ySHvM</string>
+    <string name="styleparsing_failed">Style parsing failed.</string>
+    <string name="style_error">\"Can\'t find style. Error: \"</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.codefal.mystoryapp.viewmodel.repository
+package com.codefal.mystoryapp.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

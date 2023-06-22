@@ -3,7 +3,7 @@ package com.codefal.mystoryapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.codefal.mystoryapp.viewmodel.repository.DataStoreManager
+import com.codefal.mystoryapp.repository.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

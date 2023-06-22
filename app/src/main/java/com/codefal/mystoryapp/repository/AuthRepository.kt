@@ -1,10 +1,10 @@
-package com.codefal.mystoryapp.viewmodel.repository
+package com.codefal.mystoryapp.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.codefal.mystoryapp.model.ResponseErrorMessage
-import com.codefal.mystoryapp.model.ResponseLogin
+import com.codefal.mystoryapp.network.model.ResponseErrorMessage
+import com.codefal.mystoryapp.network.model.ResponseLogin
 import com.codefal.mystoryapp.network.ApiService
 import com.codefal.mystoryapp.utils.Validation
 import retrofit2.Call

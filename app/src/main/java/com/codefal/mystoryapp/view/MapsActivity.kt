@@ -28,11 +28,8 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private val boundsBuilder = LatLngBounds.Builder()
-//    private var currentMarker = mutableListOf<Marker>()
-
     private val prefModel : PrefViewModel by viewModels()
     private val storyModel : StoryViewModel by viewModels()
-//    private val adapterStory by lazy { MyItemAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +46,10 @@ class MapsActivity : AppCompatActivity() {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         }
+
+        prefModel.getToken().observe(this){ token ->
+            storyModel.getLocStory(token)
+        }
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -60,44 +61,14 @@ class MapsActivity : AppCompatActivity() {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        /*val dicodingSpace = LatLng(-6.8957643, 107.6338462)
-        mMap.addMarker(
-            MarkerOptions()
-                .position(dicodingSpace)
-                .title("Dicoding Space")
-                .snippet("Batik Kumeli No.50")
-        )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
-
-        mMap.setOnMapLongClickListener { latLng ->
-            mMap.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("New Marker")
-                    .snippet("Lat: ${latLng.latitude} Long: ${latLng.longitude}")
-                    .icon(vectorToBitmap(R.drawable.pin_heart, Color.parseColor("#3DDC84")))
-            )
-        }
-
-        mMap.setOnPoiClickListener { pointOfInterest ->
-            val poiMarker = mMap.addMarker(
-                MarkerOptions()
-                    .position(pointOfInterest.latLng)
-                    .title(pointOfInterest.name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-            )
-            poiMarker?.showInfoWindow()
-        }
-*/
         getMyLocation()
         setMapStyle()
         getLocStory()
     }
     private fun getLocStory() {
-        prefModel.getToken().observe(this){ token ->
-            storyModel.getLocStory(token)
-            storyModel.mapsObserver().observe(this){ data ->
-                data?.forEach {
+        storyModel.mapsObserver().observe(this){ data ->
+            data?.forEach {
+                if (it != null) {
                     if (it.lat != null && it.lon != null){
                         val coordinate = LatLng(it.lat, it.lon)
                         val markerOptions = MarkerOptions()
@@ -110,8 +81,8 @@ class MapsActivity : AppCompatActivity() {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate))
                     }
                 }
-                Log.i(TAG, "getLocStory: Load Location Story")
             }
+            Log.i(TAG, "getLocStory: Load Location Story")
         }
     }
 
@@ -147,24 +118,6 @@ class MapsActivity : AppCompatActivity() {
             }
         }
     }
-/*
-    private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
-        val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
-        if (vectorDrawable == null) {
-            Log.e("BitmapHelper", "Resource not found")
-            return BitmapDescriptorFactory.defaultMarker()
-        }
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        DrawableCompat.setTint(vectorDrawable, color)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
-    }*/
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -192,10 +145,10 @@ class MapsActivity : AppCompatActivity() {
             val success =
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
             if (!success) {
-                Log.e(TAG, "Style parsing failed.")
+                Log.e(TAG, getString(R.string.styleparsing_failed))
             }
         } catch (exception: Resources.NotFoundException) {
-            Log.e(TAG, "Can't find style. Error: ", exception)
+            Log.e(TAG, getString(R.string.style_error), exception)
         }
     }
 
