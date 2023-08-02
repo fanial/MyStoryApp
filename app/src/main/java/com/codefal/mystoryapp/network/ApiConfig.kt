@@ -1,6 +1,6 @@
 package com.codefal.mystoryapp.network
 
-import androidx.viewbinding.BuildConfig
+import com.codefal.mystoryapp.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
